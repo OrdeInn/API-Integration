@@ -3,6 +3,8 @@ import time
 import json
 from dotenv import dotenv_values
 
+DELAY_IN_POLLING_LOOP_IN_SECONDS = 2
+
 # Load the API Key from .env file
 env_vars = dotenv_values()
 api_key = env_vars['MOZIO_API_KEY']
@@ -49,7 +51,7 @@ class MozioAPI:
             result_list += (response['results'])
 
             if (more_coming):
-                time.sleep(2)
+                time.sleep(DELAY_IN_POLLING_LOOP_IN_SECONDS)
             
         result['success'] = True
         result['data'] = result_list
@@ -88,7 +90,7 @@ class MozioAPI:
             return result
 
         if (response['status'] == 'pending'):
-            time.sleep(2)
+            time.sleep(DELAY_IN_POLLING_LOOP_IN_SECONDS)
             return self.getBookingPoll(search_id)
 
         if (response['status'] == 'failed'):

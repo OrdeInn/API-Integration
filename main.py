@@ -1,6 +1,8 @@
 import time
 from mozio_api import MozioAPI
 
+DELAY_BEFORE_POLLING_IN_SECONDS = 1
+
 def main():
     apiObj = MozioAPI()
     search_query = {
@@ -22,7 +24,7 @@ def main():
     search_id = create_search_res['data']
     print('\nYour search created successfully! Search id: ' + search_id)
 
-    time.sleep(1)
+    time.sleep(DELAY_BEFORE_POLLING_IN_SECONDS)
     poll_search_result = apiObj.getSearchPoll(search_id)
     if (not poll_search_result['success']):
         print('\nSomething went wrong on polling the search result. Detalis:\n' 
